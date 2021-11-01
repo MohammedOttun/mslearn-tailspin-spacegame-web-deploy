@@ -29,7 +29,7 @@ stages:
     - task: Npm@1
       displayName: 'Run npm install'
       inputs:
-        verbose: false
+        verbose: true
 
     - script: './node_modules/.bin/node-sass $(wwwrootDir) --output $(wwwrootDir)'
       displayName: 'Compile Sass assets'
@@ -109,8 +109,8 @@ stages:
             displayName: 'Azure App Service Deploy: website'
             inputs:
               azureSubscription: 'Resource Manager - Tailspin - Space Game'
-              appName: '$(WebAppNameTest)'
-              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+              appName: $(WebAppNameTest)
+              package: $(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip
   - job: RunUITests
     dependsOn: Deploy
     displayName: 'Run UI tests'
@@ -157,5 +157,5 @@ stages:
             displayName: 'Azure App Service Deploy: website'
             inputs:
               azureSubscription: 'Resource Manager - Tailspin - Space Game'
-              appName: '$(WebAppNameStaging)'
-              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+              appName: $(WebAppNameStaging)
+              package: $(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip
